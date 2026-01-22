@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>
+        Aloha Nails
+    </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff5f8;
+            text-align: center;
+        }
+
+        .gallery img {
+            width: 250px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        *{
+            box-sizing: border-box;
+        }
+
+        .mySlides{
+            min-width: 450px;
+        }
+        
+        .mySlides img {
+            width: 100%;
+            display: block;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        /*Slideshow Container*/
+        .slideshow-container{
+            max-width: 450px;
+            max-height: 450px;
+            overflow: hidden;
+            position: relative;
+            margin:auto;
+        }
+
+        .slide-track{
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+
+        /*Next and Previous buttons*/
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+
+            width: 44px;
+            height: 44px;
+
+            line-height: 44px;   /* 🔑 THIS fixes the arrow height */
+            text-align: center;
+
+            background-color: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 20px;
+
+            border-radius: 50%;
+            cursor: pointer;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Aloha Nails</h1>
+
+    <div class="slideshow-container">
+
+        <div class = "slide-track" id = "slideTrack">
+            <div class="mySlides">
+            <img src="images/Umapyoi_densetsu.png">
+            </div>
+
+            <div class="mySlides">
+            <img src="images/Umiyuri_kaiteitan.png">
+            </div>
+
+        </div>
+
+
+        <a class="prev" onclick="prevSlide()">❮</a>
+        <a class="next" onclick="nextSlide()">❯</a>
+
+
+<script>
+const track = document.getElementById("slideTrack");
+const slides = document.querySelectorAll(".mySlides");
+const slideWidth = 450;
+
+let index = 0;
+
+// Clone first slide and append it
+const firstClone = slides[0].cloneNode(true);
+track.appendChild(firstClone);
+
+const totalSlides = slides.length + 1;
+
+function updateSlide(animated = true) {
+    if (animated) {
+        track.style.transition = "transform 0.5s ease-in-out";
+    } else {
+        track.style.transition = "none";
+    }
+    track.style.transform = `translateX(-${index * slideWidth}px)`;
+}
+
+function nextSlide() {
+    index++;
+    updateSlide(true);
+
+    // If we hit the clone, jump back to real first slide
+    if (index === totalSlides - 1) {
+        setTimeout(() => {
+            index = 0;
+            updateSlide(false);
+        }, 500); // must match transition duration
+    }
+}
+
+function prevSlide() {
+    if (index === 0) {
+        // Jump to last real slide first
+        index = totalSlides - 2;
+        updateSlide(false);
+    } else {
+        index--;
+    }
+    updateSlide(true);
+}
+</script>
+
+
+
+
+    </div>
+</body>
+</html>
