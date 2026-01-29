@@ -59,7 +59,7 @@
             width: 44px;
             height: 44px;
 
-            line-height: 44px;   /* 🔑 THIS fixes the arrow height */
+            line-height: 44px;   
             text-align: center;
 
             background-color: rgba(0,0,0,0.6);
@@ -136,24 +136,27 @@ function nextSlide() {
     index++;
     updateSlide(true);
 
-    // If we hit the clone, jump back to real first slide
     if (index === totalSlides - 1) {
         setTimeout(() => {
             index = 0;
             updateSlide(false);
-        }, 500); // must match transition duration
+        }, 500);
     }
 }
 
 function prevSlide() {
     if (index === 0) {
-        // Jump to last real slide first
-        index = totalSlides - 2;
+        index = totalSlides - 1;
         updateSlide(false);
+
+        setTimeout(() => {
+            index = totalSlides - 2;
+            updateSlide(true);
+        }, 20);
     } else {
         index--;
+        updateSlide(true);
     }
-    updateSlide(true);
 }
 </script>
 
